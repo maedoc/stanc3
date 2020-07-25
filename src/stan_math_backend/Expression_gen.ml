@@ -126,7 +126,9 @@ let suffix_args f =
   else []
 
 let demangle_propto_name udf f =
-  if f = "multiply_log" || f = "binomial_coefficient_log" then f
+  if f = "multiply_log" || f = "binomial_coefficient_log" then  f
+  else if Stan_math_signatures.is_laplace_fn f then
+    Utils.stdlib_distribution_name f
   else if Utils.is_propto_distribution f then
     Utils.stdlib_distribution_name f ^ "<propto__>"
   else if

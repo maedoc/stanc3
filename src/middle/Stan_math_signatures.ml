@@ -142,6 +142,15 @@ let full_lpmf = [Lpmf; Rng; Ccdf; Cdf]
 let reduce_sum_functions = ["reduce_sum"; "reduce_sum_static"]
 let is_reduce_sum_fn f = List.mem ~equal:String.equal reduce_sum_functions f
 
+let laplace_funs =
+  String.Set.of_list
+    [ "laplace_marginal_poisson_log_lpmf"
+    ; "laplace_marginal_poisson_log_propto_lpmf"
+    ; "laplace_marginal_bernoulli_logit_lpmf"
+    ; "laplace_marginal_bernoulli_logit_propto_lpmf" ]
+
+let is_laplace_fn f = Set.mem laplace_funs f 
+
 let distributions =
   [ (full_lpmf, "beta_binomial", [DVInt; DVInt; DVReal; DVReal])
   ; (full_lpdf, "beta", [DVReal; DVReal; DVReal])
@@ -189,18 +198,6 @@ let distributions =
   ; (full_lpdf, "weibull", [DVReal; DVReal; DVReal])
   ; ([Lpdf], "wiener", [DVReal; DVReal; DVReal; DVReal; DVReal])
   ; ([Lpdf], "wishart", [DMatrix; DReal; DMatrix]) ]
-
-  (* Broken code: will edit to add ~ statement *)
-  (*; ([Lpmf], "lapalce_marginal_poisson_log",
-    [ (DataOnly, UArray UInt); (DataOnly, UArray UInt)
-  ; ( AutoDiffable
-    , UFun
-        ( [ (AutoDiffable, UVector); (DataOnly, UArray UVector)
-          ; (DataOnly, UArray UReal); (DataOnly, UArray UInt) ]
-        , ReturnType UMatrix ) )
-  ; (AutoDiffable, UVector); (DataOnly, UArray UVector)
-  ; (DataOnly, UArray UReal); (DataOnly, UArray UInt)
-  ; (AutoDiffable, UVector) ]) ] *)
 
 let math_sigs =
   [ ([UnaryVectorized], "acos", [DDeepVectorized])
