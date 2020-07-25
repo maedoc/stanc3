@@ -24,6 +24,7 @@ let is_distribution_name s =
        distribution_suffices
 
 let is_propto_distribution s =
+  is_distribution_name s &&
   List.exists ~f:(fun suffix -> String.is_suffix s ~suffix) propto_suffices
 
 let remove_propto_infix suffix ~name =
